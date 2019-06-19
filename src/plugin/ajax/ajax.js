@@ -1,5 +1,6 @@
 import axios from 'axios';
 import _alert from "../alert/index"
+import tokenFun from "../token/index"
 let Promise = require('es6-promise').Promise;
 
 const Axios = axios.create({
@@ -38,6 +39,15 @@ Axios.interceptors.request.use(config => {
         url = url.slice(0, url.length - 1)
         config.url += url
     }
+
+    // 存储 token
+    if (!tokenFun.getToken('token')) {
+        //存储token 后跳至  如果不需要 可以删除此步
+        config.headers.Authorization = ""
+    } else {
+        config.headers.Authorization = tokenFun.getToken('token')
+    }
+
     return config
 }, error => {
     return Promise.reject(error)

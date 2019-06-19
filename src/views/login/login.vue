@@ -211,6 +211,7 @@ export default {
       this._NET.authLogin(dataObj).then(data => {
         this.loading = false;
         if (data.code == "1") {
+          tokenFun.setToken("token", data.data);
           this.$router.push({ name: "home" });
         }
       });
@@ -261,6 +262,7 @@ export default {
       this._NET.codeAuthLogin(dataObj).then(data => {
         this.loading = false;
         if (data.code == "1") {
+          tokenFun.setToken("token", data.data);
           this.$router.push({ name: "home" });
         }
       });
