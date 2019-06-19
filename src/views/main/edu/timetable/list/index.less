@@ -1,0 +1,284 @@
+@import "../../../../../less/style.less";
+
+.timetable {
+    padding: 24px;
+    background-color: #fff;
+    border-radius: 4px;
+
+    .btnbox {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 16px;
+        align-items: flex-end;
+
+        .left {
+            .end {
+                color: @c2;
+                margin-right: 16px;
+
+                i {
+                    display: inline-block;
+                    width: 10px;
+                    height: 10px;
+                    background-color: @c;
+                    margin-right: 8px;
+                }
+            }
+
+            .wait {
+                color: @c2;
+                margin-right: 16px;
+
+                i {
+                    display: inline-block;
+                    width: 10px;
+                    height: 10px;
+                    background-color: #ffbd37;
+                    margin-right: 8px;
+                }
+            }
+
+            .chongtu {
+                color: @c2;
+
+                i {
+                    display: inline-block;
+                    width: 10px;
+                    height: 10px;
+                    background-color: #94438f;
+                    margin-right: 8px;
+                }
+            }
+        }
+
+        .center {
+            display: flex;
+            align-items: center;
+
+            div {
+                width: 200px;
+                text-align: center;
+                font-size: 18px;
+                color: @c1;
+            }
+        }
+    }
+
+    .week {
+        .table_box {
+            width: 100%;
+
+            >div {
+                width: 100%;
+                display: flex;
+                box-sizing: border-box;
+                border-right: 1px solid @bd1;
+
+                >div {
+                    flex: 1;
+                    box-sizing: border-box;
+                    border-left: 1px solid @bd1;
+                    border-bottom: 1px solid @bd1;
+                    padding: 8px;
+                    min-height: 200px;
+
+                    >div {
+                        margin-bottom: 8px;
+                        padding: 8px;
+                        border-radius: 4px;
+                        cursor: pointer;
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+
+                        &.end {
+                            background-color: @c;
+                            color: #fff;
+                        }
+
+                        &.await {
+                            background-color: #ffbd37;
+                            color: #fff;
+                        }
+
+                        &.chongtu {
+                            background-color: #94438f;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .month {
+        .table_box {
+            width: 100%;
+            display: flex;
+            box-sizing: border-box;
+            border-right: 1px solid @bd1;
+            flex-wrap: wrap;
+
+            >div {
+                width: 100%/7px;
+                min-width: 100%/7px;
+                box-sizing: border-box;
+                border-left: 1px solid @bd1;
+                border-bottom: 1px solid @bd1;
+                padding: 8px;
+                min-height: 150px;
+                position: relative;
+                background-color: fade(@bj, 80%);
+
+                &.currentMonth {
+                    background-color: #fff;
+
+                    &:hover {
+                        background-color: fade(@bj, 50%);
+                    }
+
+                    &.currentDay {
+                        background-color: fade(@c, 10%);
+                    }
+                }
+
+                time {
+                    display: block;
+                    text-align: right;
+                    font-size: 16px;
+                    color: @c2;
+                    margin-bottom: 8px;
+                }
+
+                >div {
+                    margin-bottom: 8px;
+                    padding: 8px;
+                    border-radius: 4px;
+                    cursor: pointer;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    &.end {
+                        background-color: @c;
+                        color: #fff;
+                    }
+
+                    &.await {
+                        background-color: #ffbd37;
+                        color: #fff;
+                    }
+
+                    &.chongtu {
+                        background-color: #94438f;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+
+    .table_head {
+        width: 100%;
+        display: flex;
+        border-top: 1px solid @bd1;
+        border-left: 1px solid @bd1;
+        box-sizing: border-box;
+
+        span {
+            display: block;
+            flex: 1;
+            height: 60px;
+            border-right: 1px solid @bd1;
+            border-bottom: 1px solid @bd1;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+
+            em {
+                font-style: normal;
+                font-size: 16px;
+                color: @c1;
+            }
+
+            s {
+                text-decoration: none;
+                font-size: 14px;
+                color: @c2;
+                margin-top: 8px;
+            }
+        }
+    }
+}
+
+
+.popheader {
+    background-color: @c;
+    padding: 8px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 50px;
+    box-sizing: border-box;
+    justify-content: center;
+
+    &.end {
+        background-color: @c;
+    }
+
+    &.await {
+        background-color: #ffbd37;
+    }
+
+    &.chongtu {
+        background-color: #94438f;
+    }
+
+    p {
+        font-size: 16px;
+        padding-right: 16px;
+    }
+}
+
+.popfooter {
+    padding: 8px;
+    padding-top: 12px;
+
+    p {
+        font-size: 14px;
+        color: @c2;
+        line-height: 20px;
+        margin-bottom: 8px;
+
+        span {
+            color: @c1;
+        }
+    }
+}
+
+.kbbtnbox {
+    text-align: right;
+    padding: 12px;
+}
+
+.ui-pop {
+    box-shadow: 0 3px 24px 0 rgba(141, 152, 168, 1);
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.selectbox {
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid @bd1;
+}
+
+.w150 {
+    width: 150px;
+    margin-right: 8px;
+}
