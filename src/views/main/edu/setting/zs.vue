@@ -80,6 +80,7 @@ export default {
         .then(() => {
           this._NET
             .jw_qdset_delete({
+              campus_id: this.campus_id,
               id
             })
             .then(data => {
@@ -108,6 +109,7 @@ export default {
 
       this._NET
         .jw_qdset_update({
+          campus_id: this.campus_id,
           id: this.qudaoid,
           name: this.qdname
         })
@@ -139,6 +141,7 @@ export default {
       this.qdloading = true;
       this._NET
         .jw_qdset_add({
+          campus_id: this.campus_id,
           name: this.qdname
         })
         .then(data => {

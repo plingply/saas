@@ -250,7 +250,7 @@ export default {
       this.xloading = true;
       this._NET
         .jw_card_list({
-          merchant_id: this.mymange,
+          campus_id: this.campus_id,
           limit: 1000,
           page: 1
         })
@@ -327,7 +327,7 @@ export default {
       if (!this.verification()) return;
       this.loading = true;
       let data = {
-        merchant_id: this.mymange,
+        campus_id: this.campus_id,
         name: this.form.name,
         note: this.form.note
       };
@@ -388,7 +388,7 @@ export default {
       this.xloading = true;
       this._NET
         .jw_course_info({
-          merchant_id: this.mymange,
+          campus_id: this.campus_id,
           id: this.$route.params.id
         })
         .then(data => {

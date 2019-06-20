@@ -92,7 +92,7 @@ export default {
       this.loading = true;
       this._NET
         .jw_student_signlist({
-          merchant_id: this.mymange,
+          campus_id: this.campus_id,
           member_id: this.$route.params.id,
           start_time,
           end_time,

@@ -95,6 +95,7 @@ export default {
       this.loading = true;
       this._NET
         .jw_student_info({
+          campus_id: this.campus_id,
           id: this.$route.params.id
         })
         .then(data => {

@@ -162,6 +162,7 @@ export default {
         getTableHead() {
             this._NET
                 .getTips({
+                    campus_id: this.campus_id,
                     key: "cluetabhead"
                 })
                 .then(data => {
@@ -210,7 +211,7 @@ export default {
 
             this._NET
                 .yw_yz_batchDelete({
-                    merchant_id: this.mymange,
+                    campus_id: this.campus_id,
                     member_ids: arr.join(",")
                 })
                 .then(data => {
@@ -254,6 +255,7 @@ export default {
 
             this._NET
                 .jw_yx_getlist({
+                    campus_id: this.campus_id,
                     page: this.page,
                     limit: this.limit,
                     add_start_time, //录入开始时间

@@ -101,6 +101,7 @@ export default {
         .then(() => {
           this._NET
             .jw_yx_delgj({
+              campus_id: this.campus_id,
               id: item.id
             })
             .then(data => {
@@ -153,6 +154,7 @@ export default {
 
       this._NET
         .jw_yx_addgj({
+          campus_id: this.campus_id,
           content: this.content,
           intention_id: this.$route.params.id,
           next_time: next_follow_at
@@ -179,6 +181,7 @@ export default {
       this.loading = true;
       this._NET
         .jw_yx_gjlist({
+          campus_id: this.campus_id,
           id: this.$route.params.id
         })
         .then(data => {

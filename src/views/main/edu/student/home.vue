@@ -398,6 +398,7 @@ export default {
 
       this._NET
         .jw_student_getlist({
+          campus_id: this.campus_id,
           add_start_time: add_start_time,
           add_end_time: add_end_time,
           search: this.s_search ? this.s_search : "",

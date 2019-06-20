@@ -48,8 +48,8 @@ export default {
     },
 
     // 获取渠道
-    getQudao(context) {
-        edu.jw_qdset_getlist()
+    getQudao(context, campus_id) {
+        edu.jw_qdset_getlist({ campus_id})
             .then(data => {
                 if (data.code == '1') {
                     context.commit('setQudao', data.data)

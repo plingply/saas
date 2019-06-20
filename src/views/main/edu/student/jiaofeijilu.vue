@@ -156,7 +156,7 @@ export default {
         .jw_student_jfjilu({
           name: this.info.name,
           phone: this.info.phone,
-          merchant_id: this.info.merchant_id,
+          campus_id: this.campus_id,
           page: this.page,
           limit: this.limit,
           trade_status: this.trade_status

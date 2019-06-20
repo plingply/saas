@@ -9,7 +9,7 @@
 export default {
   created(){
     this.$store.dispatch("getConfig")
-    this.$store.dispatch("getQudao")
+    this.$store.dispatch("getQudao", this.campus_id)
   }
 }
 </script>

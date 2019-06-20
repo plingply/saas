@@ -183,7 +183,7 @@ export default {
         .jw_class_delete(
           {
             id: this.$route.params.id,
-            merchant_id: this.mymange,
+            campus_id: this.campus_id,
             confirm
           },
           true
@@ -239,7 +239,7 @@ export default {
     removeStudentFun(student) {
       this._NET
         .jw_class_moveMember({
-          merchant_id: this.mymange,
+          campus_id: this.campus_id,
           member_id: student.member_id,
           grade_id: this.$route.params.id
         })
@@ -258,6 +258,7 @@ export default {
       this.loading = true;
       this._NET
         .jw_class_info({
+          campus_id: this.campus_id,
           id: this.$route.params.id
         })
         .then(data => {
@@ -273,7 +274,7 @@ export default {
       this.loading = true;
       this._NET
         .jw_class_member({
-          merchant_id: this.mymange,
+          campus_id: this.campus_id,
           grade_id: this.$route.params.id,
           page: this.page,
           limit: this.limit

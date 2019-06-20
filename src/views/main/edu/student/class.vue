@@ -66,7 +66,7 @@ export default {
       this.loading = true;
       this._NET
         .jw_student_class_list({
-          merchant_id: this.mymange,
+         campus_id: this.campus_id,
           member_id: this.$route.params.id,
           type: "0"
         })
@@ -116,7 +116,7 @@ export default {
     removeStudentFun(classinfo) {
       this._NET
         .jw_class_moveMember({
-          merchant_id: this.mymange,
+          campus_id: this.campus_id,
           member_id: classinfo.member_id,
           grade_id: classinfo.grade_id
         })

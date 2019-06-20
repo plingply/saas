@@ -220,7 +220,7 @@ export default {
     getTeacherlist() {
       this._NET
         .getRoleUserList({
-          merchant_id: this.mymange,
+          campus_id: this.campus_id,
           role_id: "",
           limit: 1000,
           page: 1,
@@ -236,6 +236,7 @@ export default {
       console.log("课程列表")
       this._NET
         .jw_course_list({
+          campus_id: this.campus_id,
           page: 1,
           limit: 1000,
           search: "",

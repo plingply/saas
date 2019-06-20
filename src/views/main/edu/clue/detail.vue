@@ -216,7 +216,7 @@ export default {
     updateface(url) {
       this._NET
         .jw_yx_editor({
-          merchant_id: this.mymange,
+          campus_id: this.campus_id,
           member_id: this.$route.params.id,
           avatar: url
         })
@@ -292,6 +292,7 @@ export default {
 
       this._NET
         .jw_yx_editor({
+          campus_id: this.campus_id,
           id: this.info.id,
           follow_status: this.gjzt
         })
@@ -313,6 +314,7 @@ export default {
       this.loading = true;
       this._NET
         .jw_yx_info({
+          campus_id: this.campus_id,
           id: this.$route.params.id
         })
         .then(data => {

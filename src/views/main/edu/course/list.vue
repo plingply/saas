@@ -226,6 +226,7 @@ export default {
       this.loading = true;
       this._NET
         .jw_course_list({
+          campus_id: this.campus_id,
           page: this.page,
           limit: this.limit,
           search: this.search,
@@ -251,6 +252,7 @@ export default {
     getcardList() {
       this._NET
         .jw_card_list({
+          campus_id: this.campus_id,
           limit: 1000,
           page: 1
         })

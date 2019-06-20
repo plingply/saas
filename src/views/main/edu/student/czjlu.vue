@@ -108,7 +108,7 @@ export default {
         .then(() => {
           this._NET
             .jw_student_bringdelete({
-              merchant_id: item.merchant_id,
+              campus_id: this.campus_id,
               member_id: item.member_id,
               id: item.id
             })
@@ -146,7 +146,7 @@ export default {
       this._NET
         .jw_student_bringadd({
           member_id: this.$route.params.id,
-          merchant_id: this.mymange,
+          campus_id: this.campus_id,
           content: this.gValue,
           picture: this.imglist.join(",")
         })
@@ -168,7 +168,7 @@ export default {
       this._NET
         .jw_student_bringlist({
           member_id: this.$route.params.id,
-          merchant_id: this.mymange
+          campus_id: this.campus_id,
         })
         .then(data => {
           this.loading = false;

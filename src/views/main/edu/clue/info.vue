@@ -400,6 +400,8 @@ export default {
         ? parseInt(this.form.birthday.getTime() / 1000)
         : "";
 
+        form.campus_id = this.campus_id
+
 
       this._NET.jw_yx_editor(form).then(data => {
         if (data.code == "1") {
@@ -474,6 +476,7 @@ export default {
 
           this._NET
             .yw_yz_delete({
+              campus_id: this.campus_id,
               id: this.info.id
             })
             .then(data => {
