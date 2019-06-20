@@ -6,7 +6,7 @@ let Promise = require('es6-promise').Promise;
 const Axios = axios.create({
     baseURL: $config.baseURL,
     timeout: 5000,
-    withCredentials: true, //带上 cookie
+    withCredentials: false, //带上 cookie
 })
 
 //添加一个请求拦截器
