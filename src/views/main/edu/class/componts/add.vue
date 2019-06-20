@@ -176,6 +176,7 @@ export default {
       this.loading = true;
       this._NET
         .jw_class_add({
+          campus_id: this.campus_id,
           name: this.name,
           contain: this.contain ? this.contain : "0",
           remark: this.remark,
@@ -228,6 +229,7 @@ export default {
       this.loading = true;
       this._NET
         .jw_class_update({
+          campus_id: this.campus_id,
           id: this.info.id,
           name: this.name,
           contain: this.contain ? this.contain : "0",

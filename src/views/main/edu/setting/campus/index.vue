@@ -1,16 +1,16 @@
 <template>
   <div>
     <div class="btnbox">
-      <el-button type="primary" size="mini" @click="openaddfunc">添加教室</el-button>
+      <el-button type="primary" size="mini" @click="openaddfunc">添加校区</el-button>
     </div>
     <div class="searchbox1">
-      <el-input v-model="search" placeholder="请输入教室名称" style="width:150px;margin-right:10px"></el-input>
+      <el-input v-model="search" placeholder="请输入校区名称" style="width:150px;margin-right:10px"></el-input>
       <el-button type="primary" @click="searchfunc">查询</el-button>
       <el-button plain @click="resetfunc">重置</el-button>
     </div>
     <el-table :data="list" style="width: 100%" class="table_moban" v-loading="loading">
-      <el-table-column label="教室名称" prop="name"></el-table-column>
-      <el-table-column label="可容纳人数" prop="contain"></el-table-column>
+      <el-table-column label="校区名称" prop="name"></el-table-column>
+      <el-table-column label="备注" prop="remark"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="openUpdatefunc(scope.row)">编辑</el-button>
@@ -30,20 +30,21 @@
       ></el-pagination>
     </div>
 
-    <!-- 添加教室 -->
-    <el-dialog :title="title" :visible.sync="show" width="400px">
+    <!-- 添加校区 -->
+    <el-dialog :title="title" :visible.sync="show" width="500px">
       <div class="croombox">
         <el-form ref="form" :rules="rules" :model="{}" label-width="120px">
-          <el-form-item label="教室名称" prop="name">
+          <el-form-item label="校区名称" prop="name">
             <el-input v-model="name" style="width:80%" size="medium" maxlength="20"></el-input>
           </el-form-item>
-          <el-form-item label="可容纳人数" prop="num">
+          <el-form-item label="备注"  prop="num">
             <el-input
               style="width:80%"
               size="medium"
-              v-model="contain"
-              maxlength="4"
-              @input="containInput"
+              type="textarea"
+              v-model="remark"
+              maxlength="500"
+              @input="remarkInput"
             ></el-input>
           </el-form-item>
         </el-form>
@@ -51,7 +52,7 @@
 
       <span slot="footer" class="dialog-footer">
         <el-button @click="show = false">取 消</el-button>
-        <el-button v-if="!iseditor" type="primary" @click="addfunc" :loading="sloading">添加</el-button>
+        <el-button v-if="!iseditor" type="primary" @click="addfunc" :loading="sloading">添 加</el-button>
         <el-button v-if="iseditor" type="primary" @click="updatefunc" :loading="sloading">修 改</el-button>
       </span>
     </el-dialog>
@@ -65,7 +66,7 @@ export default {
       loading: false,
       sloading: false,
       show: false,
-      title: "添加教室",
+      title: "添加校区",
       iseditor: false,
       list: [],
       page: 1,
@@ -73,9 +74,9 @@ export default {
       count: 0,
       search:'',
 
-      classroomID: "",
+      campus_id: "",
       name: "",
-      contain: "",
+      remark: "",
 
       rules: {
         name: [{ required: true, message: " ", trigger: "blur" }],
@@ -85,8 +86,8 @@ export default {
   },
 
   methods: {
-    containInput(v) {
-      this.contain = parseInt(this.$utils.formatNumber(v))?parseInt(this.$utils.formatNumber(v)):'';
+    remarkInput(v) {
+      this.remark = parseInt(this.$utils.formatNumber(v))?parseInt(this.$utils.formatNumber(v)):'';
     },
 
     handleCurrentChange(v) {
@@ -114,7 +115,7 @@ export default {
     getList() {
       this.loading = true;
       this._NET
-        .jw_classroom_list({
+        .jw_campus_list({
           merchant_id: this.mymange,
           page: this.page,
           limit: this.limit,
@@ -135,23 +136,23 @@ export default {
     addfunc() {
       if (this.name == "" || this.name.trim() == "") {
         this._alert({
-          msg: "请输入教室名称",
+          msg: "请输入校区名称",
           type: "warning"
         });
         return;
       }
 
-      if (this.contain == "") {
+      if (this.remark == "") {
         this._alert({
-          msg: "请输入教室可容纳人数",
+          msg: "请输入校区备注",
           type: "warning"
         });
         return;
       }
 
-      if (Number(this.contain) <= 0) {
+      if (Number(this.remark) <= 0) {
         this._alert({
-          msg: "可容纳人数必须大于0",
+          msg: "备注必须大于0",
           type: "warning"
         });
         return;
@@ -159,10 +160,10 @@ export default {
 
       this.sloading = true;
       this._NET
-        .jw_classroom_add({
+        .jw_campus_add({
           merchant_id: this.mymange,
           name: this.name,
-          contain: this.contain
+          remark: this.remark
         })
         .then(data => {
           this.sloading = false;
@@ -185,23 +186,23 @@ export default {
     updatefunc() {
       if (this.name == "" || this.name.trim() == "") {
         this._alert({
-          msg: "请输入教室名称",
+          msg: "请输入校区名称",
           type: "warning"
         });
         return;
       }
 
-      if (this.contain == "") {
+      if (this.remark == "") {
         this._alert({
-          msg: "请输入教室可容纳人数",
+          msg: "请输入校区备注",
           type: "warning"
         });
         return;
       }
 
-      if (Number(this.contain) <= 0) {
+      if (Number(this.remark) <= 0) {
         this._alert({
-          msg: "可容纳人数必须大于0",
+          msg: "备注必须大于0",
           type: "warning"
         });
         return;
@@ -209,11 +210,11 @@ export default {
 
       this.sloading = true;
       this._NET
-        .jw_classroom_update({
-          id: this.classroomID,
+        .jw_campus_update({
+          id: this.campus_id,
           merchant_id: this.mymange,
           name: this.name,
-          contain: this.contain
+          remark: this.remark
         })
         .then(data => {
           this.sloading = false;
@@ -232,14 +233,14 @@ export default {
     },
 
     delfunc(id) {
-      this.$confirm("是否确认删除此教室?", "提示", {
+      this.$confirm("是否确认删除此校区?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       })
         .then(() => {
           this._NET
-            .jw_classroom_delete({
+            .jw_campus_delete({
               merchant_id: this.mymange,
               id
             })
@@ -257,22 +258,22 @@ export default {
     },
 
     openaddfunc() {
-      this.title = "添加教室";
+      this.title = "添加校区";
       this.iseditor = false;
 
       this.name = "";
-      this.contain = "";
+      this.remark = "";
 
       this.show = true;
     },
 
     openUpdatefunc(obj) {
-      this.title = "编辑教室";
+      this.title = "编辑校区";
       this.iseditor = true;
       this.show = true;
-      this.classroomID = obj.id;
+      this.campus_id = obj.id;
       this.name = obj.name;
-      this.contain = obj.contain;
+      this.remark = obj.remark;
     }
   },
 
@@ -284,7 +285,7 @@ export default {
 
 
 <style lang="less" scoped>
-@import "../../../../less/style.less";
+@import "../../../../../less/style.less";
 .btnbox {
   margin-bottom: @px*2px;
 }

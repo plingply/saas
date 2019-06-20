@@ -16,6 +16,7 @@ import api from "./api/index"
 import _alert from "./plugin/alert/index"
 import tabs from "./views/componts/tabs"
 import textbox from "./views/componts/textbox"
+
 vue.component("tabs", tabs)
 vue.component("textbox", textbox)
 
@@ -29,7 +30,7 @@ vue.mixin(mixins)
 
 filters(vue)
 
-vue.prototype.$ELEMENT = { size: 'samll', zIndex: 3000 };
+vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 };
 vue.prototype.phoneReg = /^\s*$|^1[3456789]\d{9}$/;
 
 import routes from './router/index'

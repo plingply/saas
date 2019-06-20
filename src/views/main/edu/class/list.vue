@@ -199,6 +199,7 @@ export default {
       this._NET
         .jw_class_list({
           limit: this.limit,
+          campus_id: this.campus_id,
           page: this.page,
           search: this.search,
           manager: this.manager,

@@ -7,7 +7,7 @@ export default {
             .then(data => {
                 if (data.code == '1') {
                     context.commit('setUserInfo', data.data)
-                    next ? next() : ""
+                    context.dispatch("getCampus", next)
                 } else {
                     next ? next({ name: 'login' }) : ""
                 }
@@ -24,7 +24,31 @@ export default {
             })
     },
 
-    getQudao(context){
+    // 获取学校信息
+    getSchool(context) {
+        user.getSchool()
+            .then(data => {
+                if (data.code == '1') {
+                    context.commit('setSchool', data.data)
+                }
+            })
+    },
+
+    // 获取校区信息
+    getCampus(context, next) {
+        user.getCampus()
+            .then(data => {
+                if (data.code == '1') {
+                    var arr = data.data ? data.data : []
+                    context.commit("setCampusId", arr[0] ? arr[0].id : "")
+                    context.commit('setCampus', arr)
+                    next ? next() : ''
+                }
+            })
+    },
+
+    // 获取渠道
+    getQudao(context) {
         edu.jw_qdset_getlist()
             .then(data => {
                 if (data.code == '1') {

@@ -132,12 +132,18 @@ export default {
                 }
             ]
         },
-        // 教务设置
+        // 设置
         {
             path: 'Setting',
             name: 'edu_setting',
             component: resolve => require.ensure([], () => resolve(require("../views/main/edu/setting/index.vue")), 'edu'),
             children: [
+                {
+                    path: 'Campus',
+                    name: 'edu_setting_campus',
+                    component: resolve => require.ensure([], () => resolve(require("../views/main/edu/setting/campus/index.vue")), 'edu'),
+                    meta: 'edu_setting_campus'
+                },
                 {
                     path: 'Recruit',
                     name: 'edu_setting_zs',

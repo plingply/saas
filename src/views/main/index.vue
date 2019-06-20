@@ -18,6 +18,9 @@ export default {
   components: {
     vhead,
     leftmenu
+  },
+  created(){
+    this.$store.dispatch("getSchool")
   }
 };
 </script>

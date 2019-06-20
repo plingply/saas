@@ -390,6 +390,34 @@ export default {
 	},
 
 	/**
+	 * 校区相关
+	 */
+	jw_campus_list(data, hideError) {
+		return http.get("/api/campus/list", {
+			data,
+			hideError
+		})
+	},
+	jw_campus_add(data, hideError) {
+		return http.post("/api/campus/add", {
+			data,
+			hideError
+		})
+	},
+	jw_campus_update(data, hideError) {
+		return http.post("/api/campus/update", {
+			data,
+			hideError
+		})
+	},
+	jw_campus_delete(data, hideError) {
+		return http.post("/api/campus/delete", {
+			data,
+			hideError
+		})
+	},
+
+	/**
 	 * 学员卡
 	 */
 

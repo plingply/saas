@@ -20,6 +20,11 @@
     <tabs>
       <template #head>
         <router-link
+          :class="{ active: $route.meta == 'edu_setting_campus' }"
+          tag="span"
+          :to="{ name:'edu_setting_campus' }"
+        >校区设置</router-link>
+        <router-link
           :class="{ active: $route.meta == 'edu_setting_zs' }"
           tag="span"
           :to="{ name:'edu_setting_zs' }"

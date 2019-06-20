@@ -8,6 +8,18 @@ export default {
         state.yx_config = data
     },
 
+    setSchool(state, data) {
+        state.school = data
+    },
+
+    setCampus(state, data) {
+        state.campus = data
+    },
+
+    setCampusId(state, data) {
+        state.campusID = data
+    },
+
     setQudao(state, data) {
         state.yx_qudao = data
     }

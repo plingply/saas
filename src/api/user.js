@@ -64,5 +64,21 @@ export default {
 		})
 	},
 
+	// 获取学校信息
+	getSchool(data, hideError){
+		return http.get("/api/school", {
+			data,
+			hideError
+		})
+	},
+
+	// 获取校区信息
+	getCampus(data, hideError){
+		return http.get("/api/campus", {
+			data,
+			hideError
+		})
+	},
+
 	
 }
