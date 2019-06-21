@@ -171,7 +171,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import "../../../../less/style.less";
+@import "../../../../../less/style.less";
 
 .listbox {
   > h1 {

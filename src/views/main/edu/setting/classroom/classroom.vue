@@ -266,7 +266,7 @@ export default {
 
 
 <style lang="less" scoped>
-@import "../../../../less/style.less";
+@import "../../../../../less/style.less";
 .btnbox {
   margin-bottom: @px*2px;
 }

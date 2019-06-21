@@ -70,6 +70,14 @@ export default {
 			data,
 			hideError
 		})
+	},
+	
+	// 获取权限配置
+	getRolePower(data, hideError){
+		return http.get("/api/power", {
+			data,
+			hideError
+		})
 	}
 
 }

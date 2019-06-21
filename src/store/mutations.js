@@ -22,5 +22,9 @@ export default {
 
     setQudao(state, data) {
         state.yx_qudao = data
+    },
+
+    setRoleConfig(state, data){
+        state.roleConfig = data
     }
 }

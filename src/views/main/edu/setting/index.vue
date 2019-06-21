@@ -39,6 +39,11 @@
           tag="span"
           :to="{ name:'edu_setting_card' }"
         >学员卡设置</router-link>
+        <router-link
+          :class="{ active: $route.meta == 'edu_setting_role' }"
+          tag="span"
+          :to="{ name:'edu_setting_role' }"
+        >权限组设置</router-link>
       </template>
       <template #main>
           <router-view></router-view>

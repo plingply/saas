@@ -59,11 +59,17 @@ Axios.interceptors.response.use(res => {
     if (data.code == '1') {
         return data
     } else {
-        //处理错误
-        _alert.alert({
-            type: 'warning',
-            msg: data.msg
-        });
+        // token 过期
+        if( data.code == 1000){
+            window.location = "/"
+        }else{
+            //处理错误
+            _alert.alert({
+                type: 'warning',
+                msg: data.msg
+            });
+        }
+        
     }
 
     return data

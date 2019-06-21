@@ -55,5 +55,13 @@ export default {
                     context.commit('setQudao', data.data)
                 }
             })
+    },
+
+    getRoleConfig(context){
+        user.getRolePower().then(data => {
+            if (data.code == "1") {
+              context.commit("setRoleConfig",data.data)
+            }
+          });
     }
 }

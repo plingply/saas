@@ -30,10 +30,16 @@ export default [
         icon: "el-icon-s-management",
         children: []
     }, {
-        label: "课表",
+        label: "课表管理",
         path: "/Main/Edu/TimeTable/List",
         keyword: "TimeTable",
         icon: "el-icon-s-claim",
+        children: []
+    }, {
+        label: "员工管理",
+        path: "/Main/Edu/Staff/List",
+        keyword: "Staff",
+        icon: "el-icon-s-check",
         children: []
     }, {
         label: "教务设置",
