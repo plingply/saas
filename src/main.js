@@ -7,6 +7,7 @@ import element from "element-ui"
 import vscodingui from 'vscoding-ui'
 import filters from "./common/filters"
 import mixins from "./common/mixins"
+import utils from "./common/utils"
 
 import '../theme/index.css'
 import 'vscoding-ui/dist/style.css'
@@ -27,10 +28,11 @@ vue.use(api)
 vue.use(_alert)
 vue.use(vscodingui)
 vue.mixin(mixins)
+vue.use(utils)
 
 filters(vue)
 
-vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 };
+vue.prototype.$ELEMENT = { size: 'medium', zIndex: 3000 };
 vue.prototype.phoneReg = /^\s*$|^1[3456789]\d{9}$/;
 
 import routes from './router/index'

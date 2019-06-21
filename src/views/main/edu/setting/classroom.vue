@@ -10,7 +10,7 @@
     </div>
     <el-table :data="list" style="width: 100%" class="table_moban" v-loading="loading">
       <el-table-column label="教室名称" prop="name"></el-table-column>
-      <el-table-column label="可容纳人数" prop="contain"></el-table-column>
+      <el-table-column label="可容纳人数" prop="capacity"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="openUpdatefunc(scope.row)">编辑</el-button>
@@ -41,7 +41,7 @@
             <el-input
               style="width:80%"
               size="medium"
-              v-model="contain"
+              v-model="capacity"
               maxlength="4"
               @input="containInput"
             ></el-input>
@@ -68,14 +68,11 @@ export default {
       title: "添加教室",
       iseditor: false,
       list: [],
-      page: 1,
-      limit: 10,
-      count: 0,
       search:'',
 
       classroomID: "",
       name: "",
-      contain: "",
+      capacity: "",
 
       rules: {
         name: [{ required: true, message: " ", trigger: "blur" }],
@@ -86,28 +83,16 @@ export default {
 
   methods: {
     containInput(v) {
-      this.contain = parseInt(this.$utils.formatNumber(v))?parseInt(this.$utils.formatNumber(v)):'';
+      this.capacity = parseInt(this.$utils.formatNumber(v))?parseInt(this.$utils.formatNumber(v)):'';
     },
 
-    handleCurrentChange(v) {
-      this.page = v;
-      this.getList();
-    },
-
-    sizeChange(val) {
-      this.limit = val;
-      this.page = 1;
-      this.getList();
-    },
 
     searchfunc(){
-      this.page  = 1
       this.getList()
     },
 
     resetfunc(){
       this.search = ''
-      this.page = ''
       this.getList()
     },
 
@@ -115,16 +100,13 @@ export default {
       this.loading = true;
       this._NET
         .jw_classroom_list({
-          merchant_id: this.mymange,
-          page: this.page,
-          limit: this.limit,
+          campus_id :this.campus_id,
           search: this.search
         })
         .then(data => {
           this.loading = false;
-          if (data.status == "ok") {
-            this.list = data.data.item;
-            this.count = data.data.count;
+          if (data.code == "1") {
+            this.list = data.data;
           }
         })
         .catch(err => {
@@ -141,7 +123,7 @@ export default {
         return;
       }
 
-      if (this.contain == "") {
+      if (this.capacity == "") {
         this._alert({
           msg: "请输入教室可容纳人数",
           type: "warning"
@@ -149,7 +131,7 @@ export default {
         return;
       }
 
-      if (Number(this.contain) <= 0) {
+      if (Number(this.capacity) <= 0) {
         this._alert({
           msg: "可容纳人数必须大于0",
           type: "warning"
@@ -160,13 +142,13 @@ export default {
       this.sloading = true;
       this._NET
         .jw_classroom_add({
-          merchant_id: this.mymange,
+          campus_id: this.campus_id,
           name: this.name,
-          contain: this.contain
+          capacity: this.capacity
         })
         .then(data => {
           this.sloading = false;
-          if (data.status == "ok") {
+          if (data.code == "1") {
             this._alert({
               msg: "添加成功",
               type: "success"
@@ -191,7 +173,7 @@ export default {
         return;
       }
 
-      if (this.contain == "") {
+      if (this.capacity == "") {
         this._alert({
           msg: "请输入教室可容纳人数",
           type: "warning"
@@ -199,7 +181,7 @@ export default {
         return;
       }
 
-      if (Number(this.contain) <= 0) {
+      if (Number(this.capacity) <= 0) {
         this._alert({
           msg: "可容纳人数必须大于0",
           type: "warning"
@@ -210,14 +192,14 @@ export default {
       this.sloading = true;
       this._NET
         .jw_classroom_update({
+          campus_id: this.campus_id,
           id: this.classroomID,
-          merchant_id: this.mymange,
           name: this.name,
-          contain: this.contain
+          capacity: this.capacity
         })
         .then(data => {
           this.sloading = false;
-          if (data.status == "ok") {
+          if (data.code == "1") {
             this._alert({
               msg: "修改成功",
               type: "success"
@@ -240,11 +222,11 @@ export default {
         .then(() => {
           this._NET
             .jw_classroom_delete({
-              merchant_id: this.mymange,
+              campus_id: this.campus_id,
               id
             })
             .then(data => {
-              if (data.status == "ok") {
+              if (data.code == "1") {
                 this._alert({
                   msg: "删除成功",
                   type: "success"
@@ -261,7 +243,7 @@ export default {
       this.iseditor = false;
 
       this.name = "";
-      this.contain = "";
+      this.capacity = "";
 
       this.show = true;
     },
@@ -272,7 +254,7 @@ export default {
       this.show = true;
       this.classroomID = obj.id;
       this.name = obj.name;
-      this.contain = obj.contain;
+      this.capacity = obj.capacity;
     }
   },
 

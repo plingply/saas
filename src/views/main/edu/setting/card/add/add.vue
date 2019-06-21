@@ -14,12 +14,12 @@
       <el-form-item label="学员卡名称" prop="name">
         <el-input v-model="form.name" maxlength="50" size="medium" style="width:250px"></el-input>
       </el-form-item>
-      <el-form-item label="有效期" prop="expiry_date">
+      <el-form-item label="有效期" prop="month">
         <div>
-          <el-input v-show="form.expiry_date != '-1'"  v-model="form.expiry_date" @input="timeInput" size="medium" style="width:60px" :disabled="isDisabled"></el-input>
-          <el-input v-show="form.expiry_date == '-1'" disabled size="medium" style="width:60px"></el-input>
+          <el-input v-show="form.month != '-1'"  v-model="form.month" @input="timeInput" size="medium" style="width:60px" :disabled="isDisabled"></el-input>
+          <el-input v-show="form.month == '-1'" disabled size="medium" style="width:60px"></el-input>
           <span>个月&nbsp;&nbsp;</span>
-          <el-radio-group v-model="form.expiry_date">
+          <el-radio-group v-model="form.month">
             <el-radio-button label="3">3个月</el-radio-button>
             <el-radio-button label="6">6个月</el-radio-button>
             <el-radio-button label="12">12个月</el-radio-button>
@@ -31,7 +31,7 @@
       <el-form-item label="备注">
         <div>
           <el-input
-            v-model="form.note"
+            v-model="form.remark"
             type="textarea"
             maxlength="500"
             size="medium"

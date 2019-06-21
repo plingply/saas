@@ -12,7 +12,7 @@ export default {
 
       form: {
         name: '',
-        note: ''
+        remark: ''
       },
 
       rules: {
@@ -257,7 +257,7 @@ export default {
         .then(data => {
           this.xloading = false;
           if (data.code == "1") {
-            let list = data.data.item
+            let list = data.data
             let cz_cardlist = []
             let cz_allchecked = []
             let ks_cardlist = []
@@ -269,7 +269,7 @@ export default {
               list.map(item => {
                 item.num = ''
                 courselist.map(lists => {
-                  if (item.id == lists.card_type_id) {
+                  if (item.id == lists.card_id) {
                     item.num = lists.num
                   }
                 })
@@ -329,12 +329,14 @@ export default {
       let data = {
         campus_id: this.campus_id,
         name: this.form.name,
-        note: this.form.note
+        remark: this.form.remark
       };
-      this.card_consume_rule.map((item, index) => {
-        data['card_consume_rule[' + index + '][card_type_id]'] = item.card_type_id
-        data['card_consume_rule[' + index + '][num]'] = item.num
-      })
+
+      if(this.card_consume_rule.length == 0){
+        data["card_consume_rule"] = []
+      }else{
+        data["card_consume_rule"] = JSON.stringify(this.card_consume_rule)
+      }
 
       if (isEditor) {
         data.id = this.$route.params.id
@@ -395,7 +397,7 @@ export default {
           if (data.code == "1") {
             let info = data.data;
             this.form.name = info.name
-            this.form.note = info.note
+            this.form.remark = info.remark
             this.status = info.status
 
             let cz_checkedCardList = []
@@ -404,15 +406,15 @@ export default {
             info.card_consume_rule.map(item => {
               // 储值卡
               if (item.card_type == '1') {
-                cz_checkedCardList.push(item.card_type_id)
+                cz_checkedCardList.push(item.card_id)
               }
               // 课时卡
               if (item.card_type == '2') {
-                ks_checkedCardList.push(item.card_type_id)
+                ks_checkedCardList.push(item.card_id)
               }
               // 期限卡
               if (item.card_type == '3') {
-                qx_checkedCardList.push(item.card_type_id)
+                qx_checkedCardList.push(item.card_id)
               }
             })
 
@@ -438,8 +440,7 @@ export default {
   created() {
     if (this.$route.name == 'edu_course_editor') {
       this.getInfo()
-    } else {
-      this.getCardlist()
-    }
+    } 
+    this.getCardlist()
   },
 };

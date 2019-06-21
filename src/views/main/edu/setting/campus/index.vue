@@ -3,12 +3,7 @@
     <div class="btnbox">
       <el-button type="primary" size="mini" @click="openaddfunc">添加校区</el-button>
     </div>
-    <div class="searchbox1">
-      <el-input v-model="search" placeholder="请输入校区名称" style="width:150px;margin-right:10px"></el-input>
-      <el-button type="primary" @click="searchfunc">查询</el-button>
-      <el-button plain @click="resetfunc">重置</el-button>
-    </div>
-    <el-table :data="list" style="width: 100%" class="table_moban" v-loading="loading">
+    <el-table :data="campus" style="width: 100%" class="table_moban" v-loading="loading">
       <el-table-column label="校区名称" prop="name"></el-table-column>
       <el-table-column label="备注" prop="remark"></el-table-column>
       <el-table-column label="操作">
@@ -18,17 +13,6 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="fenye" v-show="count > fysize">
-      <el-pagination
-        @size-change="sizeChange"
-        @current-change="handleCurrentChange"
-        :page-sizes="pageSizes"
-        :current-page="page"
-        :page-size="limit"
-        :layout="fy_layout"
-        :total="count"
-      ></el-pagination>
-    </div>
 
     <!-- 添加校区 -->
     <el-dialog :title="title" :visible.sync="show" width="500px">
@@ -37,14 +21,13 @@
           <el-form-item label="校区名称" prop="name">
             <el-input v-model="name" style="width:80%" size="medium" maxlength="20"></el-input>
           </el-form-item>
-          <el-form-item label="备注"  prop="num">
+          <el-form-item label="备注">
             <el-input
               style="width:80%"
               size="medium"
               type="textarea"
               v-model="remark"
               maxlength="500"
-              @input="remarkInput"
             ></el-input>
           </el-form-item>
         </el-form>
@@ -68,69 +51,26 @@ export default {
       show: false,
       title: "添加校区",
       iseditor: false,
-      list: [],
-      page: 1,
-      limit: 10,
-      count: 0,
-      search:'',
 
-      campus_id: "",
       name: "",
       remark: "",
 
       rules: {
-        name: [{ required: true, message: " ", trigger: "blur" }],
-        num: [{ required: true, message: " ", trigger: "blur" }]
+        name: [{ required: true, message: " ", trigger: "blur" }]
       },
     };
   },
 
+  computed:{
+    campus(){
+      return this.$store.state.campus
+    }
+  },
+
   methods: {
-    remarkInput(v) {
-      this.remark = parseInt(this.$utils.formatNumber(v))?parseInt(this.$utils.formatNumber(v)):'';
-    },
-
-    handleCurrentChange(v) {
-      this.page = v;
-      this.getList();
-    },
-
-    sizeChange(val) {
-      this.limit = val;
-      this.page = 1;
-      this.getList();
-    },
-
-    searchfunc(){
-      this.page  = 1
-      this.getList()
-    },
-
-    resetfunc(){
-      this.search = ''
-      this.page = ''
-      this.getList()
-    },
 
     getList() {
-      this.loading = true;
-      this._NET
-        .jw_campus_list({
-          merchant_id: this.mymange,
-          page: this.page,
-          limit: this.limit,
-          search: this.search
-        })
-        .then(data => {
-          this.loading = false;
-          if (data.status == "ok") {
-            this.list = data.data.item;
-            this.count = data.data.count;
-          }
-        })
-        .catch(err => {
-          this.loading = false;
-        });
+      this.$store.dispatch("getCampus")
     },
 
     addfunc() {
@@ -161,20 +101,18 @@ export default {
       this.sloading = true;
       this._NET
         .jw_campus_add({
-          merchant_id: this.mymange,
           name: this.name,
           remark: this.remark
         })
         .then(data => {
           this.sloading = false;
-          if (data.status == "ok") {
+          if (data.code == "1") {
             this._alert({
               msg: "添加成功",
               type: "success"
             });
 
             this.show = false;
-            this.page = 1;
             this.getList();
           }
         })
@@ -212,13 +150,12 @@ export default {
       this._NET
         .jw_campus_update({
           id: this.campus_id,
-          merchant_id: this.mymange,
           name: this.name,
           remark: this.remark
         })
         .then(data => {
           this.sloading = false;
-          if (data.status == "ok") {
+          if (data.code == "1") {
             this._alert({
               msg: "修改成功",
               type: "success"
@@ -241,11 +178,11 @@ export default {
         .then(() => {
           this._NET
             .jw_campus_delete({
-              merchant_id: this.mymange,
+              campus_id: this.campus_id,
               id
             })
             .then(data => {
-              if (data.status == "ok") {
+              if (data.code == "1") {
                 this._alert({
                   msg: "删除成功",
                   type: "success"
@@ -275,10 +212,6 @@ export default {
       this.name = obj.name;
       this.remark = obj.remark;
     }
-  },
-
-  created() {
-    this.getList();
   }
 };
 </script>

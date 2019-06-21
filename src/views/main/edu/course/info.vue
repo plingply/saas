@@ -74,7 +74,7 @@ export default {
         })
         .then(data => {
           this.xloading = false;
-          if (data.status == "ok") {
+          if (data.code == "1") {
             this.info = data.data;
             this.card_consume_rule = data.data.card_consume_rule;
           }
@@ -111,7 +111,7 @@ export default {
           true
         )
         .then(data => {
-          if (data.status == "ok") {
+          if (data.code == "1") {
             this._alert({
               type: "success",
               msg: "删除成功"

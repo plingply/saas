@@ -365,25 +365,25 @@ export default {
 	 * 教室相关
 	 */
 	jw_classroom_list(data, hideError) {
-		return http.get("/api/edu/classroom/list", {
+		return http.get("/api/classroom/list", {
 			data,
 			hideError
 		})
 	},
 	jw_classroom_add(data, hideError) {
-		return http.post("/api/edu/classroom/add", {
+		return http.post("/api/classroom/add", {
 			data,
 			hideError
 		})
 	},
 	jw_classroom_update(data, hideError) {
-		return http.post("/api/edu/classroom/update", {
+		return http.post("/api/classroom/update", {
 			data,
 			hideError
 		})
 	},
 	jw_classroom_delete(data, hideError) {
-		return http.post("/api/edu/classroom/delete", {
+		return http.post("/api/classroom/delete", {
 			data,
 			hideError
 		})
@@ -422,35 +422,35 @@ export default {
 	 */
 
 	jw_card_add(data, hideError) {
-		return http.post("/api/edu/card_type/add", {
+		return http.post("/api/cardtype/add", {
 			data,
 			hideError
 		})
 	},
 
 	jw_card_list(data, hideError) {
-		return http.get("/api/edu/card_type/list", {
+		return http.get("/api/cardtype/list", {
 			data,
 			hideError
 		})
 	},
 
 	jw_card_update(data, hideError) {
-		return http.post("/api/edu/card_type/update", {
+		return http.post("/api/cardtype/update", {
 			data,
 			hideError
 		})
 	},
 
 	jw_card_delete(data, hideError) {
-		return http.post("/api/edu/card_type/delete", {
+		return http.post("/api/cardtype/delete", {
 			data,
 			hideError
 		})
 	},
 
 	jw_card_info(data, hideError) {
-		return http.get("/api/edu/card_type/info", {
+		return http.get("/api/cardtype/info", {
 			data,
 			hideError
 		})

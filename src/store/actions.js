@@ -36,7 +36,7 @@ export default {
 
     // 获取校区信息
     getCampus(context, next) {
-        user.getCampus()
+        edu.jw_campus_list()
             .then(data => {
                 if (data.code == '1') {
                     var arr = data.data ? data.data : []

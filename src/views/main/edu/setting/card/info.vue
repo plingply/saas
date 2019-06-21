@@ -4,10 +4,9 @@
       <span>学员卡详情</span>
       <div class="btnbox">
         <span class="y_link" @click="$router.push({ name: 'edu_setting_card',query:{ callback: true } })">返回上一层</span>
-        <el-button plain :disabled="!edum_status" @click="deleteFun($route.params.id)">删除</el-button>
+        <el-button plain  @click="deleteFun($route.params.id)">删除</el-button>
         <el-button
           type="primary"
-          :disabled="!edum_status"
           @click="tolinkEditor($route.params.id)"
         >编辑</el-button>
       </div>
@@ -22,13 +21,13 @@
         </el-col>
         <el-col :span="8">
           <el-form-item label="有效期">
-            <span v-if="info.expiry_date > 0">{{ info.expiry_date }}个月</span>
-            <span v-if="info.expiry_date == 0">无限期</span>
+            <span v-if="info.month > 0">{{ info.month }}个月</span>
+            <span v-if="info.month == 0">无限期</span>
           </el-form-item>
         </el-col>
       </el-row>
 
-      <el-form-item label="备注">{{ info.note }}</el-form-item>
+      <el-form-item label="备注">{{ info.remark }}</el-form-item>
       <el-form-item label="关联课程">
         <div class="error" v-if="card_consume_rule.length == 0">未开启课程关联设置</div>
         <span v-for="(item,index) in card_consume_rule" :key="index">
@@ -55,9 +54,6 @@ export default {
     yx_config() {
       return this.$store.state.yx_config;
     },
-    edum_status() {
-      return this.$store.state.edum_status;
-    },
     card_type() {
       let res = this.yx_config.card_type_list[this.info.card_type]
         ? this.yx_config.card_type_list[this.info.card_type]
@@ -74,14 +70,14 @@ export default {
       this.xloading = true;
       this._NET
         .jw_card_info({
-          merchant_id: this.mymange,
+          campus_id: this.campus_id,
           id: this.$route.params.id
         })
         .then(data => {
           this.xloading = false;
-          if (data.status == "ok") {
+          if (data.code == "1") {
             this.info = data.data;
-            this.card_consume_rule = data.data.card_consume_rule;
+            this.card_consume_rule = data.data.card_consume_rule?data.data.card_consume_rule:[];
           }
         })
         .catch(err => {
@@ -102,11 +98,11 @@ export default {
         .then(() => {
           this._NET
             .jw_card_delete({
-              merchant_id: this.mymange,
+              campus_id: this.campus_id,
               id
             })
             .then(data => {
-              if (data.status == "ok") {
+              if (data.code == "1") {
                 this._alert({
                   type: "success",
                   msg: "删除成功"

@@ -153,7 +153,7 @@ export default {
             });
             this.qudaoshow = false;
             this.qdname = "";
-            this.$store.dispatch("getQudao");
+            this.$store.dispatch("getQudao", this.campus_id)
           }
         })
         .catch(err => {

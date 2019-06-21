@@ -70,15 +70,6 @@ export default {
 			data,
 			hideError
 		})
-	},
+	}
 
-	// 获取校区信息
-	getCampus(data, hideError){
-		return http.get("/api/campus", {
-			data,
-			hideError
-		})
-	},
-
-	
 }

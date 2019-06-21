@@ -8,8 +8,8 @@ export default {
       form: {
         card_type: "1",
         name: "",
-        expiry_date: "",
-        note: ""
+        month: "",
+        remark: ""
       },
 
       card_consume_rule: [],
@@ -17,7 +17,7 @@ export default {
       rules: {
         card_type: [{ required: true, message: " ", trigger: "blur" }],
         name: [{ required: true, message: " ", trigger: "blur" }],
-        expiry_date: [{ required: true, message: " ", trigger: "blur" }]
+        month: [{ required: true, message: " ", trigger: "blur" }]
       },
 
       courselist: [],
@@ -72,6 +72,7 @@ export default {
     formatNum() {
 
       this.courselist.map(item => {
+        console.log(item.num)
         if (this.form.card_type == '1') {
           item.num = this.$utils.priceFormat(item.num);
         }
@@ -109,7 +110,7 @@ export default {
       v = v ? parseInt(v) : "";
       if (v > 99) v = 99;
       if (v < 0) v = 0;
-      this.form.expiry_date = v;
+      this.form.month = v;
     },
 
     /**
@@ -142,7 +143,7 @@ export default {
         return false;
       }
 
-      if (!this.form.expiry_date) {
+      if (!this.form.month) {
         this._alert({
           type: "warning",
           msg: "请填写有效期"
@@ -193,18 +194,16 @@ export default {
     postData(idEditor) {
       if (!this.verification()) return;
       this.loading = true;
-      let expiry_date = !this.form.expiry_date || this.form.expiry_date == '-1' ? '0' : this.form.expiry_date
+      let month = !this.form.month || this.form.month == '-1' ? '0' : this.form.month
       let data = {
-        merchant_id: this.mymange,
+        campus_id: this.campus_id,
         name: this.form.name,
-        note: this.form.note,
-        expiry_date,
-        card_type: this.form.card_type
+        remark: this.form.remark,
+        month,
+        card_type: this.form.card_type,
+        card_consume_rule: JSON.stringify(this.card_consume_rule)
       };
-      this.card_consume_rule.map((item, index) => {
-        data['card_consume_rule[' + index + '][course_id]'] = item.course_id
-        data['card_consume_rule[' + index + '][num]'] = item.num
-      })
+
       if (idEditor) {
         data.id = this.$route.params.id
         this.editorpostData(data)
@@ -221,7 +220,7 @@ export default {
         .jw_card_add(data)
         .then(data => {
           this.loading = false;
-          if (data.status == "ok") {
+          if (data.code == "1") {
             this._alert({
               type: "success",
               msg: "添加成功"
@@ -242,7 +241,7 @@ export default {
         .jw_card_update(data)
         .then(data => {
           this.loading = false;
-          if (data.status == "ok") {
+          if (data.code == "1") {
             this._alert({
               type: "success",
               msg: "更新成功"
@@ -259,11 +258,11 @@ export default {
      * 课程列表
      */
 
-    getCourseList(courseArr) {
+    getCourseList(courseArr = []) {
       this.xloading = true
       this._NET
         .jw_course_list({
-          merchant_id: this.mymange,
+          campus_id: this.campus_id,
           page: 1,
           limit: 1000,
           status: '1'
@@ -271,7 +270,7 @@ export default {
         .then(data => {
           this.loading = false;
           this.xloading = false
-          if (data.status == "ok") {
+          if (data.code == "1") {
             let allchecked = []
             let checkedList = []
             if (courseArr) {
@@ -294,6 +293,7 @@ export default {
             this.allchecked = allchecked
             this.checkedList = checkedList
             this.courselist = data.data.item;
+
             this.handlecheckedListChange(this.checkedList)
           }
         })
@@ -309,15 +309,15 @@ export default {
     getInfo() {
       this.xloading = true
       this._NET.jw_card_info({
-        merchant_id: this.mymange,
+        campus_id: this.campus_id,
         id: this.$route.params.id
       }).then(data => {
-        if (data.status == 'ok') {
+        if (data.code == '1') {
           let info = data.data
           this.form.card_type = info.card_type
           this.form.name = info.name
-          this.form.expiry_date = info.expiry_date == '0' ? '-1' : info.expiry_date
-          this.form.note = info.note
+          this.form.month = info.month == '0' ? '-1' : info.month
+          this.form.remark = info.remark
           this.getCourseList(info.card_consume_rule)
         }
       }).catch(err => {

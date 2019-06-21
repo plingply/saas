@@ -11,7 +11,7 @@
           :command="item.id"
           v-for="(item,index) in campus"
           :key="index"
-        >{{ item.campus_name }}</el-dropdown-item>
+        >{{ item.name }}</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>
@@ -36,9 +36,10 @@ export default {
   methods: {
     handleCommand(command) {
       this.$store.commit("setCampusId", command);
+      this.$router.push({ name:'home' })
       this.campus.forEach(item => {
         if (item.id == command) {
-          this.campusName = item.campus_name;
+          this.campusName = item.name;
         }
       });
     }
@@ -47,7 +48,7 @@ export default {
   created() {
     this.campus.forEach(item => {
       if (item.id == this.campus_id) {
-        this.campusName = item.campus_name;
+        this.campusName = item.name;
       }
     });
   }

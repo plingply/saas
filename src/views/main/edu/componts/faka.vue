@@ -65,7 +65,7 @@
               ></el-input>
               <span>个月</span>
 
-              <el-radio-group v-model="form.expiry_month" @change="getmonth">
+              <el-radio-group size="mini" v-model="form.expiry_month" @change="getmonth">
                 <el-radio-button label="3">3个月</el-radio-button>
                 <el-radio-button label="6">6个月</el-radio-button>
                 <el-radio-button label="12">12个月</el-radio-button>
@@ -329,7 +329,7 @@ export default {
         }
 
       let data = {
-        merchant_id: this.mymange,
+        campus_id: this.campus_id,
         card_type_id: this.card_type_id,
         is_auto_active: this.is_auto_active ? "1" : "0",
         expire_end,
@@ -380,13 +380,11 @@ export default {
     getList() {
       this._NET
         .jw_card_list({
-          merchant_id: this.mymange,
-          limit: 1000,
-          page: 1
+          campus_id: this.campus_id
         })
         .then(data => {
-          if (data.status == "ok") {
-            this.cardlist = data.data.item;
+          if (data.code == "1") {
+            this.cardlist = data.data;
           }
         });
     }

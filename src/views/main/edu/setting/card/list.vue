@@ -3,7 +3,6 @@
     <div class="btnbox">
       <el-button
         type="primary"
-        :disabled="!edum_status"
         @click="$router.push({ name:'edu_setting_addcard' })"
       >添加学员卡</el-button>
     </div>
@@ -22,15 +21,15 @@
           >{{ item }}</span>
         </template>
       </el-table-column>
-      <el-table-column prop="expiry_date" label="有效期">
+      <el-table-column prop="month" label="有效期">
         <template slot-scope="scope">
-          <span v-if="scope.row.expiry_date > '0'">{{ scope.row.expiry_date }}个月</span>
-          <span v-if="scope.row.expiry_date == '0'">无限期</span>
+          <span v-if="scope.row.month > '0'">{{ scope.row.month }}个月</span>
+          <span v-if="scope.row.month == '0'">无限期</span>
         </template>
       </el-table-column>
-      <el-table-column prop="note" label="备注">
+      <el-table-column prop="remark" label="备注">
         <template slot-scope="scope">
-          <textbox :len="10" :text="scope.row.note"></textbox>
+          <textbox :len="10" :text="scope.row.remark"></textbox>
         </template>
       </el-table-column>
       <el-table-column label="操作">
@@ -39,17 +38,6 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="fenye" v-show="count > fysize">
-      <el-pagination
-        @current-change="handleCurrentChange"
-        :current-page="page"
-        :page-size="limit"
-        @size-change="sizeChange"
-        :page-sizes="pageSizes"
-        :layout="fy_layout"
-        :total="count"
-      ></el-pagination>
-    </div>
   </div>
 </template>
 
@@ -58,61 +46,29 @@ export default {
   data() {
     return {
       loading: false,
-      list: [],
-      count: 0,
-      limit: 10,
-      page: 1
+      list: []
     };
   },
 
   computed: {
     yx_config() {
       return this.$store.state.yx_config;
-    },
-    edum_status() {
-      return this.$store.state.edum_status;
     }
   },
 
   methods: {
-    setLocalStorage() {
-      window.sessionStorage.setItem("page", this.page);
-      window.sessionStorage.setItem("limit", this.limit);
-    },
 
-    getLocalStorage() {
-      this.page = window.sessionStorage.getItem("page")
-        ? window.sessionStorage.getItem("page")
-        : this.page;
-      this.limit = window.sessionStorage.getItem("limit")
-        ? window.sessionStorage.getItem("limit")
-        : this.limit;
-    },
-
-    sizeChange(v) {
-      this.limit = v;
-      this.page = 1;
-      this.getList();
-    },
-    handleCurrentChange(v) {
-      this.page = v;
-      this.getList();
-    },
     getList() {
-      this.setLocalStorage();
 
       this.loading = true;
       this._NET
         .jw_card_list({
-          merchant_id: this.mymange,
-          limit: this.limit,
-          page: this.page
+          campus_id : this.campus_id
         })
         .then(data => {
           this.loading = false;
-          if (data.status == "ok") {
-            this.list = data.data.item;
-            this.count = data.data.count;
+          if (data.code == "1") {
+            this.list = data.data;
           }
         })
         .catch(err => {
@@ -126,13 +82,6 @@ export default {
   },
 
   created() {
-    // 判断是否通过返回进入
-    if (this.$route.query.callback) {
-      this.getLocalStorage();
-    } else {
-      this.setLocalStorage();
-    }
-
     this.getList();
   }
 };

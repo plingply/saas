@@ -67,7 +67,7 @@
               <span @click="tolinkeditor(scope.row.id)" class="y_link">未设置</span>
             </div>
             <div v-if="scope.row.card_type_list.length == 1">
-              {{ scope.row.card_type_list[0].card_type_name }}
+              {{ scope.row.card_type_list[0].name }}
               <span
                 v-if="scope.row.card_type_list[0].card_type !='3'"
               >({{ scope.row.card_type_list[0].num }}{{ scope.row.card_type_list[0].card_type | unit }}/课)</span>
@@ -76,12 +76,12 @@
               <el-tooltip placement="top">
                 <div slot="content">
                   <p v-for="(item,index) in scope.row.card_type_list" :key="index">
-                    {{ item.card_type_name }}
+                    {{ item.name }}
                     <span v-if="item.card_type !='3'">({{ item.num }}{{ item.card_type | unit }}/课)</span>
                   </p>
                 </div>
                 <span>
-                  {{ scope.row.card_type_list[0].card_type_name }}
+                  {{ scope.row.card_type_list[0].name }}
                   <span
                     v-if="scope.row.card_type_list[0].card_type !='3'"
                   >({{ scope.row.card_type_list[0].num }}{{ scope.row.card_type_list[0].card_type | unit }}/课)</span>...
