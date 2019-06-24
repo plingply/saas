@@ -26,7 +26,7 @@
           <span v-if="info.status == '1'">启用</span>
           <span v-if="info.status == '2'">停用</span>
         </el-form-item>
-        <el-form-item label="备注">{{ info.note?info.note:'--' }}</el-form-item>
+        <el-form-item label="备注">{{ info.remark?info.remark:'--' }}</el-form-item>
         <el-form-item label="关联学员卡">
           <div class="error" v-if="card_consume_rule.length == 0">未设置学员卡</div>
           <div v-for="(item,index) in card_consume_rule" :key="index">

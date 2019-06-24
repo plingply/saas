@@ -8,7 +8,7 @@
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item
-          :command="item.id"
+          :command="item.campus_id"
           v-for="(item,index) in campus"
           :key="index"
         >{{ item.name }}</el-dropdown-item>
@@ -38,7 +38,7 @@ export default {
       this.$store.commit("setCampusId", command);
       this.$router.push({ name:'home' })
       this.campus.forEach(item => {
-        if (item.id == command) {
+        if (item.campus_id == command) {
           this.campusName = item.name;
         }
       });
@@ -47,7 +47,7 @@ export default {
 
   created() {
     this.campus.forEach(item => {
-      if (item.id == this.campus_id) {
+      if (item.campus_id == this.campus_id) {
         this.campusName = item.name;
       }
     });

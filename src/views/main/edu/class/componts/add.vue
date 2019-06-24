@@ -126,8 +126,8 @@ export default {
         this.title = "添加班级";
       }
 
-      if (this.teacher.length == 0) this.getTeacherlist();
-      if (this.subject.length == 0) this.getsubjectlist();
+      this.getsubjectlist();
+      this.getTeacherlist();
     },
 
     class_rl(v) {

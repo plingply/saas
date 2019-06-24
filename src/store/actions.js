@@ -6,8 +6,15 @@ export default {
         user.getUserInfo()
             .then(data => {
                 if (data.code == '1') {
+                    // 没有学校
                     context.commit('setUserInfo', data.data)
-                    context.dispatch("getCampus", next)
+                    if(data.data.school_id == 0){
+                        next()
+                    }else{
+                        context.dispatch("getSchool")
+                        context.dispatch("getCampus", next)
+                    }
+                    
                 } else {
                     next ? next({ name: 'login' }) : ""
                 }
@@ -40,7 +47,7 @@ export default {
             .then(data => {
                 if (data.code == '1') {
                     var arr = data.data ? data.data : []
-                    context.commit("setCampusId", arr[0] ? arr[0].id : "")
+                    context.commit("setCampusId", arr[0] ? arr[0].campus_id : "")
                     context.commit('setCampus', arr)
                     next ? next() : ''
                 }

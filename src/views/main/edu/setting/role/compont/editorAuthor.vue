@@ -73,7 +73,11 @@ export default {
     showtime() {
       this.name = this.roleObj.role_name;
 
-      this.checkList = this.roleObj.power_id.split(",");
+      if(this.roleObj.powerid == 'all'){
+        this.repeatfun(this.powerList)
+      }else{
+        this.checkList = this.roleObj.power_id.split(",");
+      }
 
       this.remark = this.roleObj.remark;
       this.show = true;
@@ -126,7 +130,7 @@ export default {
         })
         .then(data => {
           this.saveLoading = false;
-          if (data.status == "ok") {
+          if (data.code == "1") {
             this.show = false;
             this._alert({
               type: "success",

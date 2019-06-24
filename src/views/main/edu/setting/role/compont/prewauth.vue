@@ -62,9 +62,10 @@ export default {
   watch: {
     showtime() {
       this.name = this.roleObj.role_name;
-
       this.repeatfun(this.powerList);
-      this.checkList = this.roleObj.power_id.split(",");
+      if (this.roleObj.power_id != "all") {
+        this.checkList = this.roleObj.power_id.split(",");
+      }
       this.show = true;
       setTimeout(() => {
         this.$refs.trees.setCheckedKeys(this.checkList);
@@ -90,7 +91,7 @@ export default {
       if (arr) {
         arr.forEach(item => {
           item.disabled = true;
-          if (item.action) {
+          if (item.action && this.roleObj.power_id == "all") {
             this.checkList.push(item.id);
           }
           this.repeatfun(item.power);

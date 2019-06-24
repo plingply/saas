@@ -89,7 +89,7 @@ export default {
                   type: "success",
                   msg: "删除成功"
                 });
-                this.$store.dispatch("getQudao");
+                this.$store.dispatch("getQudao", this.campus_id);
               }
             });
         })
@@ -121,7 +121,7 @@ export default {
               msg: "更新成功"
             });
             this.qudaoshow = false;
-            this.$store.dispatch("getQudao");
+            this.$store.dispatch("getQudao", this.campus_id);
           }
         })
         .catch(err => {

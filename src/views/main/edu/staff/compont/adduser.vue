@@ -80,7 +80,7 @@
         <el-form-item label="权限" prop="role">
           <el-select v-model="role_id" size="medium" style="width:100%" placeholder="请选择">
             <el-option
-              v-for="item in roleList"
+              v-for="item in rolelist"
               :key="item.id"
               :label="item.role_name"
               :value="item.id"
@@ -121,6 +121,7 @@ export default {
   data() {
     return {
       show: false,
+      rolelist:[],
       title: "新增员工",
       loading: false,
       more: false,
@@ -171,11 +172,7 @@ export default {
       }
     };
   },
-  computed: {
-    roleList() {
-      return this.$store.state.roleList;
-    }
-  },
+  
   watch: {
     showData() {
       this.show = true;
@@ -212,9 +209,9 @@ export default {
     },
 
     role_id(v) {
-      this.roleList.map(item => {
+      this.rolelist.map(item => {
         if (v == item.id) {
-          this.powerid = item.powerid;
+          this.powerid = item.power_id;
         }
       });
 
@@ -222,6 +219,19 @@ export default {
     }
   },
   methods: {
+
+    getRoleList() {
+      this._NET
+        .getRoleList({
+          campus_id: this.campus_id
+        })
+        .then(data => {
+          if (data.code == "1") {
+            this.rolelist = data.data;
+          }
+        })
+    },
+
     phoneInput(v) {
       this.phone = this.$utils.formatphone(v);
     },
@@ -310,7 +320,7 @@ export default {
         phone: this.phone,
         sex: this.sex,
         role_id: this.role_id,
-        merchant_id: this.mymange,
+        campus_id: this.campus_id,
         entry_at,
         certificate_type: this.certificate_type,
         certificate_sn: this.certificate_sn,
@@ -325,7 +335,7 @@ export default {
         .addRoleUser(data)
         .then(data => {
           this.loading = false;
-          if (data.status == "ok") {
+          if (data.code == "1") {
             this.show = false;
             this._alert({
               type: "success",
@@ -349,7 +359,7 @@ export default {
         phone: this.phone,
         sex: this.sex,
         role_id: this.role_id,
-        merchant_id: this.mymange,
+        campus_id: this.campus_id,
         entry_at,
         certificate_type: this.certificate_type,
         certificate_sn: this.certificate_sn,
@@ -365,7 +375,7 @@ export default {
         .editorRoleUser(data, true)
         .then(data => {
           this.loading = false;
-          if (data.status == "ok") {
+          if (data.code == "1") {
             this.show = false;
             this._alert({
               type: "success",
@@ -395,6 +405,10 @@ export default {
           this.loading = false;
         });
     }
+  },
+
+  created(){
+    this.getRoleList()
   }
 };
 </script>

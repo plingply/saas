@@ -536,6 +536,23 @@ export default {
 			data,
 			hideError
 		})
-	}
+	},
+
+	// 员工
+	addRoleUser(data, hideError){
+		return http.post("/api/staff/add", {
+			data,
+			hideError
+		})
+	},
+
+	// 员工
+	getRoleUserList(data, hideError){
+		return http.get("/api/staff/list", {
+			data,
+			hideError
+		})
+	},
+
 
 }

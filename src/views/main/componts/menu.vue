@@ -6,6 +6,9 @@
       </span>
       <div>{{ user.name }}</div>
       <p>{{ user.phone }}</p>
+      <div>
+        <el-button plain size="mini" @click="LoginOut">退出登录</el-button>
+      </div>
     </div>
     <el-menu
       default-active="2"
@@ -14,6 +17,7 @@
       text-color="#fff"
       active-text-color="#ffd04b"
       :router="true"
+      v-if="user.school_id > 0"
     >
       <div v-for="(item,index) in menu" :key="index">
         <el-menu-item v-if="item.children.length == 0" :index="item.path">
@@ -48,6 +52,17 @@ export default {
     user() {
       return this.$store.state.userInfo;
     }
+  },
+
+  methods:{
+    LoginOut(){
+      this._NET.LoginOut()
+      .then(data=>{
+        if(data.code == '1'){
+          window.location = "/#/Login"
+        }
+      })
+    }
   }
 };
 </script>
@@ -62,7 +77,7 @@ export default {
   overflow: hidden;
   .userinfobox {
     width: 100%;
-    height: 200px;
+    height: 230px;
     padding-top: 30px;
     box-sizing: border-box;
     > span {
@@ -92,6 +107,7 @@ export default {
       color: #fff;
       line-height: 1;
       margin: 0;
+      margin-bottom: 8px;
     }
   }
 

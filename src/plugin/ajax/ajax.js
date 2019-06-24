@@ -5,7 +5,7 @@ let Promise = require('es6-promise').Promise;
 
 const Axios = axios.create({
     baseURL: $config.baseURL,
-    timeout: 5000,
+    timeout: 60000,
     withCredentials: false, //带上 cookie
 })
 
@@ -61,7 +61,7 @@ Axios.interceptors.response.use(res => {
     } else {
         // token 过期
         if( data.code == 1000){
-            window.location = "/"
+            window.location = "/#/Login"
         }else{
             //处理错误
             _alert.alert({

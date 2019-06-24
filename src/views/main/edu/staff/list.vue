@@ -11,7 +11,6 @@
     <div class="searchbox">
       <el-input
         placeholder="员工姓名/联系电话"
-        size="small"
         maxlength="20"
         clearable
         @keyup.enter.native="selectFun"
@@ -50,9 +49,9 @@
     <div class="tablebox" v-loading="loading" element-loading-text="加载中">
       <div class="tablestyle">
         <el-table :data="list" style="width: 100%" class="table_moban" size="medium">
-          <el-table-column prop="user_remark" label="员工姓名"></el-table-column>
+          <el-table-column prop="remark_name" label="员工姓名"></el-table-column>
           <el-table-column prop="sex" label="性别"></el-table-column>
-          <el-table-column prop="user_phone" label="联系电话"></el-table-column>
+          <el-table-column prop="phone" label="联系电话"></el-table-column>
           <el-table-column prop label="权限">
             <template slot-scope="scope">{{ scope.row.role_name }}</template>
           </el-table-column>
@@ -60,18 +59,6 @@
             <template slot-scope="scope">
               <span v-show="scope.row.role_type == '1'">是</span>
               <span v-show="scope.row.role_type == '0'">否</span>
-            </template>
-          </el-table-column>
-          <el-table-column prop="role_id" label="公众号收款通知">
-            <template slot-scope="scope">
-              <el-switch
-                v-model="scope.row.mpmsg"
-                active-color="#FF6562"
-                inactive-color="#eee"
-                active-value="1"
-                inactive-value="0"
-                @change="switchChange(scope.row)"
-              ></el-switch>
             </template>
           </el-table-column>
           <el-table-column prop label="操作">
@@ -146,7 +133,7 @@ export default {
         })
         .then(data => {
           this.getList();
-          if (data.status == "ok") {
+          if (data.code == "1") {
             this._alert({
               type: "success",
               msg: "修改成功"
@@ -183,11 +170,11 @@ export default {
       this.getList();
     },
     getList() {
-      if (!this.mymange || this.mymange == "") return;
+      if (!this.campus_id || this.campus_id == "") return;
       this.loading = true;
       this._NET
         .getRoleUserList({
-          merchant_id: this.mymange,
+          campus_id: this.campus_id,
           role_id: this.type,
           page: this.page,
           limit: this.limit,
@@ -196,7 +183,7 @@ export default {
         })
         .then(data => {
           this.loading = false;
-          if (data.status == "ok") {
+          if (data.code == "1") {
             this.list = data.data.item;
             this.count = data.data.count;
           }

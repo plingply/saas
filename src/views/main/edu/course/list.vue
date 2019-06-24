@@ -96,9 +96,9 @@
             <span v-if="scope.row.status == '2'">停用</span>
           </template>
         </el-table-column>
-        <el-table-column label="备注" prop="note">
+        <el-table-column label="备注" prop="remark">
           <template slot-scope="scope">
-            <textbox :len="10" :text="scope.row.note"></textbox>
+            <textbox :len="10" :text="scope.row.remark"></textbox>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="180px">
