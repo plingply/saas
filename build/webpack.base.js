@@ -130,6 +130,12 @@ module.exports = {
             ignore: ['.*']
         }]),
 
+        new CopyWebpackPlugin([{
+            from: path.join(__dirname, '..', 'file'),
+            to: path.join(__dirname, config.buildDirPath, config.buildDirName, ''),
+            ignore: ['.*']
+        }]),
+
         new ProgressBarPlugin({
             format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
             width: 60
