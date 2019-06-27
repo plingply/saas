@@ -15,13 +15,6 @@ export default {
 		})
 	},
 
-	// 退出登录
-	LoginOut(data, hideError){
-		return http.post("/api/auth/loginout", {
-			data,
-		})
-	},
-
 	// 注册用户
 	register(data, hideError){
 		return http.post("/api/auth/register", {

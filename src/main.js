@@ -18,6 +18,8 @@ import _alert from "./plugin/alert/index"
 import tabs from "./views/componts/tabs"
 import textbox from "./views/componts/textbox"
 
+import vueCutPicture from "vue-cut-picture";
+
 vue.component("tabs", tabs)
 vue.component("textbox", textbox)
 
@@ -29,6 +31,7 @@ vue.use(_alert)
 vue.use(vscodingui)
 vue.mixin(mixins)
 vue.use(utils)
+vue.use(vueCutPicture)
 
 filters(vue)
 
