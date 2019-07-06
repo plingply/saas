@@ -207,7 +207,10 @@ export default {
         compress = true;
       }
 
+      console.log(document.getElementById("fileElement"))
+
       setTimeout(() => {
+        console.log(document.getElementById("fileElement"))
         this.clip(event, {
           aspectRatio: 1,
           element: document.getElementById("fileElement"),
@@ -219,7 +222,7 @@ export default {
           compress: compress,
           maxwidth: 200
         });
-      }, 0);
+      }, 1000);
     },
 
     uploadfilefunc(fileObj) {

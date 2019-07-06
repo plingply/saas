@@ -143,6 +143,7 @@ export default {
 
             form.birthday = form.birthday ? parseInt(form.birthday.getTime() / 1000) : ''
             form.entry_time = form.entry_time ? parseInt(form.entry_time.getTime() / 1000) : ''
+            form.campus_id = this.campus_id
 
             if (this.editor) {
                 form.id = this.info.id

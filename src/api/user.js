@@ -78,6 +78,14 @@ export default {
 			data,
 			hideError
 		})
+	},
+
+	// 上传图片
+	fileUpload(data, hideError){
+		return http.post("/api/upload", {
+			data,
+			hideError
+		})
 	}
 
 }

@@ -11,6 +11,7 @@ import utils from "./common/utils"
 
 import '../theme/index.css'
 import 'vscoding-ui/dist/style.css'
+import 'vue-cut-picture/dist/style'
 import './less/index.less'
 
 import api from "./api/index"

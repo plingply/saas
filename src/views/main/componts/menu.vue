@@ -2,8 +2,9 @@
   <div class="menu">
     <div class="userinfobox">
       <span>
-        <img src="static/img/loginbj.jpg" alt>
-        <input type="file" @change="changeImage">
+        <img src="static/img/loginbj.jpg" v-if="!face_url">
+        <img :src="face_url" v-if="face_url">
+        <input type="file" @change="changeImage($event)">
       </span>
       <div>{{ user.name }}</div>
       <p>{{ user.phone }}</p>
@@ -79,10 +80,10 @@ export default {
   methods: {
     LoginOut() {
       token.removeToken("token");
-      window.location = "/#/Login";
+      window.location = "/";
     },
 
-    changeImage() {
+    changeImage(event) {
       let fileType = event.target.files[0].type;
       if (fileType != "image/png" && fileType != "image/jpeg") {
         this._alert({
@@ -124,7 +125,7 @@ export default {
         .then(data => {
           this.txloading = false;
           if (data.code == "1") {
-            this.face_url = data.data.url;
+            this.face_url = data.data;
             this.txfileshow = false;
             this.updateface();
           }
@@ -176,6 +177,12 @@ export default {
 
 <style lang="less" scoped>
 @import "../../../less/style";
+
+.cutboxstyle {
+    position: relative;
+    width: 550px;
+    height: 400px;
+}
 
 .menu {
   width: 200px;

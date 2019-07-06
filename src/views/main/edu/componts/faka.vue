@@ -100,7 +100,7 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="show = false">取 消</el-button>
-        <el-button type="primary" @click="addfun" :loading="loading">确 定</el-button>
+        <el-button type="primary" @click="addfun" :loading="loading">确 定1</el-button>
       </span>
     </el-dialog>
 
@@ -160,11 +160,19 @@ export default {
     fakasucc
   },
 
-  filters:{
-    timeformat(val){
-      if (!val || val == 0 || val == '') return "永久";
-        var date = new Date(val);
-        return date.getFullYear() + "-" + ((date.getMonth() + 1) < 10 ? ("0" + (date.getMonth() + 1)) : (date.getMonth() + 1)) + '-' + (date.getDate() < 10 ? ("0" + date.getDate()) : date.getDate())
+  filters: {
+    timeformat(val) {
+      if (!val || val == 0 || val == "") return "永久";
+      var date = new Date(val);
+      return (
+        date.getFullYear() +
+        "-" +
+        (date.getMonth() + 1 < 10
+          ? "0" + (date.getMonth() + 1)
+          : date.getMonth() + 1) +
+        "-" +
+        (date.getDate() < 10 ? "0" + date.getDate() : date.getDate())
+      );
     }
   },
 
@@ -199,9 +207,9 @@ export default {
         }
       } else {
         this.expire_end = "";
-        this.form.expiry_month = this.form.expiry_month == '-2'?'':this.form.expiry_month
+        this.form.expiry_month =
+          this.form.expiry_month == "-2" ? "" : this.form.expiry_month;
       }
-
     },
 
     showtime() {
@@ -319,14 +327,17 @@ export default {
       let expire_end = this.expire_end
         ? parseInt(this.expire_end.setHours(23, 59, 59) / 1000)
         : "0";
-        let expiry_month = ''
-        if(!this.form.expiry_month || this.form.expiry_month == "-1"){
-          expiry_month = "0"
-        }else if(this.form.expiry_month == '-2'){
-          expiry_month = Math.ceil((this.expire_end.getTime() - new Date().getTime())/(1000*3600*24*30))
-        }else{
-          expiry_month = this.form.expiry_month
-        }
+      let expiry_month = "";
+      if (!this.form.expiry_month || this.form.expiry_month == "-1") {
+        expiry_month = "0";
+      } else if (this.form.expiry_month == "-2") {
+        expiry_month = Math.ceil(
+          (this.expire_end.getTime() - new Date().getTime()) /
+            (1000 * 3600 * 24 * 30)
+        );
+      } else {
+        expiry_month = this.form.expiry_month;
+      }
 
       let data = {
         campus_id: this.campus_id,
@@ -336,7 +347,7 @@ export default {
         num_sum: this.form.num_sum,
         note: this.note,
         expiry_month,
-        member_id: this.studentInfo.member_id
+        member_id: this.studentInfo.id
       };
       this._NET
         .jw_card_open(data)
@@ -345,7 +356,7 @@ export default {
           this.show = false;
 
           // 卡片已存在 可以触发续费逻辑 ata.code = -1000
-          if (data.status == "ok") {
+          if (data.code == "1") {
             this.show = false;
             this.callback();
             this.fakaSuccId = data.data;

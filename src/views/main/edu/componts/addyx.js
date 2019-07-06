@@ -80,6 +80,7 @@ export default {
                 form[key] = this.form[key]
             }
             form.birthday = form.birthday ? parseInt(form.birthday.getTime()/1000) : ''
+            form.campus_id = this.campus_id
 
             this._NET.jw_yx_add(form)
                 .then(data => {
