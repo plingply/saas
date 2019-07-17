@@ -280,6 +280,7 @@ export default {
   ul {
     display: flex;
     flex-wrap: wrap;
+    list-style: none;
     li {
       width: 100px;
       height: 100px;

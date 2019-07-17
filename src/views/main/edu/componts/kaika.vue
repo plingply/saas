@@ -155,7 +155,7 @@ export default {
       this._NET
         .jw_student_card_open({
           member_id: this.member_id,
-          merchant_id: this.mymange,
+          campus_id: this.campus_id,
           card_id: this.card_id,
           expire_end
         })
@@ -174,7 +174,7 @@ export default {
       this.loading = true;
       this._NET
         .jw_student_cardinfo({
-          merchant_id: this.mymange,
+          campus_id: this.campus_id,
           member_id: this.member_id,
           card_id: this.card_id
         })

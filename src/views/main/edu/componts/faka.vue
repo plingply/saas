@@ -100,7 +100,7 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="show = false">取 消</el-button>
-        <el-button type="primary" @click="addfun" :loading="loading">确 定1</el-button>
+        <el-button type="primary" @click="addfun" :loading="loading">确 定</el-button>
       </span>
     </el-dialog>
 

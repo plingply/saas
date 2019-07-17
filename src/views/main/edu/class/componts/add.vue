@@ -49,9 +49,9 @@
           >
             <el-option
               v-for="item in teacher"
-              :key="item.user_id"
-              :label="item.user_remark"
-              :value="item.user_id"
+              :key="item.id"
+              :label="item.remark_name"
+              :value="item.id"
             ></el-option>
           </el-select>
         </el-form-item>

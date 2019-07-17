@@ -169,24 +169,25 @@ export default {
 
   methods: {
     openChongzhi(obj) {
+      console.log(obj)
       
       this.chongzhitime = Date.now();
       this.card_id = obj.id;
-      this.member_id = obj.member_id;
+      this.member_id = obj.student_id;
     },
 
     openKoufei(obj) {
      
       this.koufeitime = Date.now();
       this.card_id = obj.id;
-      this.member_id = obj.member_id;
+      this.member_id = obj.student_id;
     },
 
     xiugaiYXQ(obj) {
       
       this.yxqtime = Date.now();
       this.card_id = obj.id;
-      this.member_id = obj.member_id;
+      this.member_id = obj.student_id;
     },
 
     fakafunc() {
@@ -194,23 +195,24 @@ export default {
     },
 
     openKaika(obj) {
-     
+     console.log(obj)
       this.kaikashow = Date.now();
       this.card_id = obj.id;
-      this.member_id = obj.member_id;
+      this.member_id = obj.student_id;
     },
 
     getList() {
       this.loading = true;
       this._NET
         .jw_student_cardlist({
-          merchant_id: this.mymange,
+          campus_id: this.campus_id,
           member_id: this.$route.params.id
         })
         .then(data => {
           this.loading = false;
-          if (data.status == "ok") {
-            this.list = data.data.item;
+          if (data.code == 1) {
+            console.log(data)
+            this.list = data.data;
           }
         })
         .catch(err => {
@@ -235,8 +237,8 @@ export default {
         .then(() => {
           this._NET
             .jw_student_card_nullify({
-              merchant_id: this.mymange,
-              member_id: obj.member_id,
+              campus_id: this.campus_id,
+              member_id: obj.student_id,
               card_id: obj.id
             })
             .then(data => {

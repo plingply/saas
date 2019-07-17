@@ -2,7 +2,7 @@ module.exports = {
     "plugins": {
       // to edit target browsers: use "browserslist" field in package.json
         "autoprefixer": {
-            "browsers": [
+            "overrideBrowserslist": [
                 "ie >= 9",
                 "ff >= 30",
                 "chrome >= 34",
