@@ -12,10 +12,10 @@
       <el-table-column label="操作人" prop="operater_user_name"></el-table-column>
       <el-table-column label="时间" prop="created_at">
         <template slot-scope="scope">
-          {{ scope.row.created_at | yyyy_mm_dd_H_M }}
+          {{ scope.row.created | yyyy_mm_dd_H_M }}
         </template>
       </el-table-column>
-      <el-table-column label="备注" prop="note"></el-table-column>
+      <el-table-column label="备注" prop="remark"></el-table-column>
     </el-table>
     <div class="fenye" v-show="count > fysize">
         <el-pagination
