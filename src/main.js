@@ -18,6 +18,7 @@ import api from "./api/index"
 import _alert from "./plugin/alert/index"
 import tabs from "./views/componts/tabs"
 import textbox from "./views/componts/textbox"
+import mbox from "./plugin/mbox/index"
 
 import vueCutPicture from "vue-cut-picture";
 
@@ -33,6 +34,7 @@ vue.use(vscodingui)
 vue.mixin(mixins)
 vue.use(utils)
 vue.use(vueCutPicture)
+vue.use(mbox)
 
 filters(vue)
 

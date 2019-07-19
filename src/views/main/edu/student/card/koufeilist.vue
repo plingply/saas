@@ -62,14 +62,14 @@ export default {
     getList() {
       this.loading = true;
       this._NET.jw_student_card_delaylist({
-        merchant_id: this.mymange,
+        campus_id: this.campus_id,
         member_id: this.$route.params.id,
         card_id: this.$route.params.card_id,
         limit: this.limit,
         page: this.page
       }).then(data=>{
           this.loading = false
-          if(data.status == 'ok'){
+          if(data.code == 1){
               this.list = data.data.item
               this.count = data.data.count
           }

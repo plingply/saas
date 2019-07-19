@@ -149,13 +149,13 @@ export default {
       this.loading = true;
       this._NET
         .jw_student_cardinfo({
-          merchant_id: this.mymange,
+          campus_id: this.campus_id,
           member_id: this.member_id,
           card_id: this.card_id
         })
         .then(data => {
           this.loading = false;
-          if (data.status == "ok") {
+          if (data.code == 1) {
             this.info = data.data;
             this.isWuqixian =
               this.info.expire_end && this.info.expire_end > 0 ? false : true;
@@ -178,7 +178,7 @@ export default {
         expire_end = parseInt(this.form.expire_end.setHours(23, 59, 59) / 1000);
       }
       let data = {
-        merchant_id: this.mymange,
+        campus_id: this.campus_id,
         member_id: this.member_id,
         card_id: this.card_id,
         expire_end,
@@ -189,7 +189,7 @@ export default {
         .jw_student_card_delay(data)
         .then(data => {
           this.xloading = false;
-          if (data.status == "ok") {
+          if (data.code == 1) {
             this._alert({
               type: "success",
               msg: "修改成功"

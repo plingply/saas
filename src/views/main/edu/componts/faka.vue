@@ -48,24 +48,24 @@
             ></el-input>
             <span>&nbsp;课时</span>
           </el-form-item>
-          <el-form-item label="有效期" prop="expiry_month">
+          <el-form-item label="有效期" prop="validity">
             <div class="crow">
               <el-input
-                v-show="form.expiry_month != '-1' && form.expiry_month != '-2'"
+                v-show="form.validity != '-1' && form.validity != '-2'"
                 style="width:60px"
                 size="medium"
-                v-model="form.expiry_month"
+                v-model="form.validity"
                 @input="yxqInput"
               ></el-input>
               <el-input
-                v-show="form.expiry_month == '-1' || form.expiry_month == '-2'"
+                v-show="form.validity == '-1' || form.validity == '-2'"
                 style="width:60px"
                 size="medium"
                 disabled
               ></el-input>
               <span>个月</span>
 
-              <el-radio-group size="mini" v-model="form.expiry_month" @change="getmonth">
+              <el-radio-group size="mini" v-model="form.validity" @change="getmonth">
                 <el-radio-button label="3">3个月</el-radio-button>
                 <el-radio-button label="6">6个月</el-radio-button>
                 <el-radio-button label="12">12个月</el-radio-button>
@@ -78,11 +78,11 @@
               <div v-show="is_auto_active" class="flex">
                 <span
                   class="youxiaoqi"
-                  v-show="form.expiry_month != '-2' && form.expiry_month != ''"
+                  v-show="form.validity != '-2' && form.validity != ''"
                 >有效期至：{{ expire_end | timeformat }}</span>
-                <span class="youxiaoqi" v-show="form.expiry_month == ''">有效期至：--</span>
+                <span class="youxiaoqi" v-show="form.validity == ''">有效期至：--</span>
                 <el-date-picker
-                  v-show="form.expiry_month == '-2'"
+                  v-show="form.validity == '-2'"
                   v-model="expire_end"
                   type="date"
                   style="width:150px"
@@ -131,7 +131,7 @@ export default {
       note: "",
       form: {
         num_sum: "",
-        expiry_month: ""
+        validity: ""
       },
 
       is_auto_active: true,
@@ -141,7 +141,7 @@ export default {
         card_type: [{ required: true, message: " ", trigger: "blur" }],
         card_type_id: [{ required: true, message: " ", trigger: "blur" }],
         num_sum: [{ required: true, message: " ", trigger: "blur" }],
-        expiry_month: [{ required: true, message: " ", trigger: "blur" }]
+        validity: [{ required: true, message: " ", trigger: "blur" }]
       },
 
       fakasuccShow: 0,
@@ -198,17 +198,17 @@ export default {
 
     is_auto_active(v) {
       if (v) {
-        if (this.form.expiry_month && this.form.expiry_month > 0) {
+        if (this.form.validity && this.form.validity > 0) {
           this.expire_end = new Date(
-            Date.now() + this.form.expiry_month * 1000 * 60 * 60 * 24 * 30
+            Date.now() + this.form.validity * 1000 * 60 * 60 * 24 * 30
           );
         } else {
           this.expire_end = "";
         }
       } else {
         this.expire_end = "";
-        this.form.expiry_month =
-          this.form.expiry_month == "-2" ? "" : this.form.expiry_month;
+        this.form.validity =
+          this.form.validity == "-2" ? "" : this.form.validity;
       }
     },
 
@@ -233,7 +233,7 @@ export default {
         this.expire_end = new Date(Date.now() + v * 1000 * 60 * 60 * 24 * 30);
       }
 
-      this.form.expiry_month = v;
+      this.form.validity = v;
     },
 
     getmonth(v) {
@@ -242,7 +242,7 @@ export default {
       } else {
         this.expire_end = new Date(Date.now() + v * 1000 * 60 * 60 * 24 * 30);
       }
-      this.form.expiry_month = v;
+      this.form.validity = v;
     },
 
     sumInput(v) {
@@ -290,7 +290,7 @@ export default {
         }
       }
 
-      if (!this.form.expiry_month) {
+      if (!this.form.validity) {
         this._alert({
           type: "warning",
           msg: "请填写有效期"
@@ -298,7 +298,7 @@ export default {
         return false;
       }
 
-      if (this.form.expiry_month == "-2") {
+      if (this.form.validity == "-2") {
         if (!this.expire_end) {
           this._alert({
             type: "warning",
@@ -327,16 +327,16 @@ export default {
       let expire_end = this.expire_end
         ? parseInt(this.expire_end.setHours(23, 59, 59) / 1000)
         : "0";
-      let expiry_month = "";
-      if (!this.form.expiry_month || this.form.expiry_month == "-1") {
-        expiry_month = "0";
-      } else if (this.form.expiry_month == "-2") {
-        expiry_month = Math.ceil(
+      let validity = "";
+      if (!this.form.validity || this.form.validity == "-1") {
+        validity = "0";
+      } else if (this.form.validity == "-2") {
+        validity = Math.ceil(
           (this.expire_end.getTime() - new Date().getTime()) /
             (1000 * 3600 * 24 * 30)
         );
       } else {
-        expiry_month = this.form.expiry_month;
+        validity = this.form.validity;
       }
 
       let data = {
@@ -346,7 +346,7 @@ export default {
         expire_end,
         num_sum: this.form.num_sum,
         note: this.note,
-        expiry_month,
+        validity,
         member_id: this.studentInfo.id
       };
       this._NET
@@ -374,7 +374,7 @@ export default {
             this.card_type_id = "";
             this.note = "";
             this.form.num_sum = "";
-            this.form.expiry_month = "";
+            this.form.validity = "";
             this.is_auto_active = false;
             this.expire_end = "";
           }

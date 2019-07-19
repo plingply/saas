@@ -35,8 +35,8 @@
         </div>
         <div class="row">
           <span>有效期</span>
-          <div v-if="info.expiry_month > 0">{{ info.expiry_month }}个月</div>
-          <div v-if="info.expiry_month == '0'">无限期</div>
+          <div v-if="info.validity > 0">{{ info.validity }}个月</div>
+          <div v-if="info.validity == '0'">无限期</div>
         </div>
 
         <div class="formbox">
@@ -160,7 +160,7 @@ export default {
           expire_end
         })
         .then(data => {
-          if (data.status == "ok") {
+          if (data.code == 1) {
             this._alert({
               type: "success",
               msg: "开卡成功"
@@ -180,12 +180,12 @@ export default {
         })
         .then(data => {
           this.loading = false;
-          if (data.status == "ok") {
+          if (data.code == 1) {
             this.info = data.data;
             this.form.expiry_time =
-              this.info.expiry_month > 0
+              this.info.validity > 0
                 ? new Date(
-                    Date.now() + this.info.expiry_month * 3600 * 1000 * 24 * 30
+                    Date.now() + this.info.validity * 3600 * 1000 * 24 * 30
                   )
                 : "";
           }

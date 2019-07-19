@@ -37,10 +37,10 @@
         </template>
       </el-table-column>
       <el-table-column label="发卡时间" prop="active_time" width="150">
-        <template slot-scope="scope">{{ scope.row.created_at | yyyy_mm_dd_H_M }}</template>
+        <template slot-scope="scope">{{ scope.row.created | yyyy_mm_dd_H_M }}</template>
       </el-table-column>
       <el-table-column label="开卡时间" prop="expire_start" width="150">
-        <template slot-scope="scope">{{ scope.row.active_time | yyyy_mm_dd_H_M }}</template>
+        <template slot-scope="scope">{{ scope.row.expire_start | yyyy_mm_dd_H_M }}</template>
       </el-table-column>
       <el-table-column label="余额" prop="num_sum">
         <template slot-scope="scope">
