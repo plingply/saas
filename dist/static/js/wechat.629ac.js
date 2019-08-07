@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([["wechat"],{Kpql:function(n,e,t){"use strict";t.r(e);var l=t("F8we"),c=Object(l.a)({},function(){var n=this,e=n.$createElement;return(n._self._c||e)("div",[n._v("\n    微信授权\n")])},[],!1,null,null,null);e.default=c.exports}}]);

@@ -11,6 +11,11 @@ export default [
         component: resolve => require.ensure([], () => resolve(require("../views/login/login.vue")), 'login'),
     },
     {
+        path: '/Wechat',
+        name: 'wechat',
+        component: resolve => require.ensure([], () => resolve(require("../views/wechat/index.vue")), 'wechat'),
+    },
+    {
         path: '/Register',
         name: 'register',
         component: resolve => require.ensure([], () => resolve(require("../views/login/register.vue")), 'login'),

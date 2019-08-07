@@ -48,7 +48,7 @@ let router = new vueRouter({
 })
 
 router.beforeEach(function (to, from, next) {
-    if (to.path == '/Login' || to.path == '/Register') {
+    if (to.path == '/Login' || to.path == '/Register' || to.path == '/Wechat') {
         next()
     } else {
         if (store.state.userInfo.id) {
